@@ -130,9 +130,8 @@ class DefaultAccountAdapter(object):
             )
             msg.attach_alternative(bodies["txt"], "text/html")
         elif "txt" in bodies:
-            msg = EmailMultiAlternatives(
-                subject, bodies["txt"], from_email, to, headers=headers
-            )
+            msg = EmailMessage(subject, bodies["txt"], from_email, to, headers=headers)
+            msg.content_subtype = "txt"  # Main content is now text/html
         else:
             msg = EmailMessage(subject, bodies["html"], from_email, to, headers=headers)
             msg.content_subtype = "html"  # Main content is now text/html
